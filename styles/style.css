@@ -1,0 +1,137 @@
+/* Google Font */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+	/* margin: 0; */
+	/* padding: 0; */
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	min-height: 100vh;
+	font-family: Montserrat;
+	background: #f3f4fb;
+}
+
+.tabs {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* max-width: 400px; */
+	width: 100%;
+}
+
+.tabs__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: #fff;
+	box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+	border-radius: 30px;
+	padding: 10px 5px;
+	margin-bottom: 20px;
+	max-width: 400px;
+}
+
+.tabs__toggle {
+	margin: 0 5px;
+	padding: 7px 25px;
+	background: #fff;
+	border-radius: 20px;
+	cursor: pointer;
+	/* text-align: center; */
+	transition: 0.5s;
+}
+
+.tabs__name {
+	font-weight: 500;
+	font-size: 14px;
+	color: #484848;
+}
+
+.tabs__body {
+	background: #fff;
+	box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+	border-radius: 25px;
+	padding: 30px;
+	position: relative;
+	max-width: 700px;
+	min-height: 500px;
+}
+
+.tabs__title {
+	font-weight: 600;
+	font-size: 24px;
+	color: #484848;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.tabs__text {
+	font-size: 14px;
+	line-height: 1.2;
+	color: #484848;
+}
+
+.tabs__content {
+	display: none;
+}
+
+.tabs__toggle.is-active {
+	background: #e7eef8;
+}
+
+.tabs__toggle.is-active .tabs__name {
+	color: #2a61d8;
+}
+
+.tabs__content.is-active {
+	display: block;
+}
+
+span::after {
+	padding-left: 5px;
+}
+
+input:invalid + span::after {
+	content: '✖';
+}
+
+input:valid + span::after {
+	content: '✓';
+}
+
+/*--- Адаптивність ---*/
+@media (max-width: 768px) {
+	.tabs__title {
+		/* font-size: 18px; */
+	}
+}
+
+@media (max-width: 480px) {
+	.tabs__head {
+		padding: 10px 5px;
+	}
+
+	.tabs__toggle {
+		padding: 5px 10px;
+	}
+
+	.tabs__body {
+		padding: 15px;
+		/* min-height: 300px; */
+	}
+
+	.tabs__title {
+		font-size: 20px;
+	}
+
+	.tabs__text {
+		/* font-size: 12px; */
+		line-height: 1.4;
+	}
+}
