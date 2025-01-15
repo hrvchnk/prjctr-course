@@ -1,100 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Reusable Tabs</title>
-		<link href="styles/style.css" rel="stylesheet" />
-	</head>
-	<body>
-		<!-- <div id="tabs-container"> -->
-		<!-- Заголовки табів -->
-		<div class="tabs__head">
-			<div class="tabs__toggle is-active" data-tab="tab1">
-				<span class="tabs__name">📌 Task</span>
-			</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reusable Tabs</title>
+    <link href="styles/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Заголовки табів -->
+    <div class="tabs__head">
+      <div class="tabs__toggle is-active" data-tab="tab1">
+        <span class="tabs__name">📌 Task</span>
+      </div>
 
-			<div class="tabs__toggle" data-tab="tab2">
-				<span class="tabs__name">⏱️ Range</span>
-			</div>
-			<div class="tabs__toggle" data-tab="tab3">
-				<span class="tabs__name">🎉 Holidays</span>
-			</div>
-		</div>
+      <div class="tabs__toggle" data-tab="tab2">
+        <span class="tabs__name">⏱️ Range</span>
+      </div>
+      <div class="tabs__toggle" data-tab="tab3">
+        <span class="tabs__name">🎉 Holidays</span>
+      </div>
+    </div>
 
-		<!-- Контент табів -->
-		<div class="tabs__body">
-			<!-- Task Tab -->
-			<div id="tab1" class="tabs__content is-active">
-				<h2 class="tabs__title">Task Tab</h2>
-				<p class="tabs__text">Content for the Task tab goes here.</p>
-			</div>
+    <!-- Контент табів -->
+    <div class="tabs__body">
 
-			<!-- Range Tab -->
-			<div id="tab2" class="tabs__content">
-				<h2 class="tabs__title">Range Tab</h2>
+			<!-- ****** Description ****** -->
+      <!-- Task Tab -->
+      <div id="tab1" class="tabs__content is-active">
+        <h2 class="tabs__title">Task Tab</h2>
+        <p class="tabs__text">Content for the Task tab goes here.</p>
+      </div>
+      <!-- END Task Tab -->
+		
+			<!-- ****** Task 1 ****** -->
+      <!-- Range Tab -->
+      <div id="tab2" class="tabs__content">
+        <h2 class="tabs__title">⏱️ Date Range Calculation</h2>
 
-				<!-- Date Pickers -->
-				<form action="." id="form">
-					<label for="start-date">Start Date</label>
-					<input
-						type="date"
-						id="start-date"
-						name="start-date"
-						value="2024-12-09"
-					/>
-					<span class="validity"></span>
-					<label for="end-date">End Date</label>
-					<input type="date" id="end-date" name="end-date" value="2024-12-31" />
+        <!-- Date Pickers -->
+        <div class="date-pickers">
+          <label for="start-date">Start Date</label>
+          <input type="date" id="start-date" name="start-date" value="2025-01-15" />
 
-					<!-- Dropdown Select -->
+          <!-- Checkbox Presets -->
+          <div class="checkbox-container">
+            <label>
+              <span id="preset-7days" class="custom-checkbox">+ Week (7 days)</span>
+            </label>
+            <label>
+              <span id="preset-30days" class="custom-checkbox">+ Month (30 days)</span>
+            </label>
+          </div>
 
-					<label for="range-selector">Select range</label>
+          <label for="end-date">End Date</label>
+          <input type="date" id="end-date" name="end-date" />
 
-					<select id="range-selector" name="range">
-						<option value="7days">Week (7 days)</option>
-						<option value="30days">Month (30 days)</option>
-					</select>
+          <label for="options-selector">Select options</label>
+          <select id="options-selector">
+            <option value="all">All days</option>
+            <option value="work">Work days</option>
+            <option value="holidays">Holidays</option>
+          </select>
+        </div>
 
-					<label for="options-selector">Select options</label>
+        <!-- Buttons -->
+        <div class="tabs__actions">
+          <button id="day-button" class="result-button" data-range="day">
+            Day
+          </button>
+          <button id="hours-button" class="result-button" data-range="hours">
+            Hours
+          </button>
+          <button id="minutes-button" class="result-button">Minutes</button>
+          <button id="seconds-button" class="result-button">Seconds</button>
+        </div>
 
-					<select id="options-selector">
-						<option value="all">All days</option>
-						<option value="work">Work days</option>
-						<option value="holidays">Holidays</option>
-					</select>
-				</form>
+        <!-- Result -->
+        <p for="result"class="last-result">
+          Result: <span id="last-result">0</span>
+				</p>
 
-				<!-- Buttons -->
-				<div class="tabs__actions">
-					<button id="day-button" class="result-button" data-range="day">
-						Day
-					</button>
-					<button id="hours-button" class="result-button" data-range="hours">
-						Hours
-					</button>
-					<button id="minutes-button" class="result-button">Minutes</button>
-					<button id="seconds-button" class="result-button">Seconds</button>
-				</div>
+				 <!-- History -->
+        <p class="history-header">
+					<label for="history">History:</label>
+          <ul class="result-list"></ul>
+          <button id="clear-button" class="clear-button-text">
+            Clear history
+          </button>
+        </p>
+      </div>
+			
+			<!-- ****** Task 2 ****** -->
+      <!-- Holidays Tab -->
+      <div id="tab3" class="tabs__content">
+        <h2 class="tabs__title">Holidays Tab</h2>
+        <p class="tabs__text">Content for the Holidays tab goes here.</p>
+      </div>
+    </div>
 
-				<!-- History -->
-				<p class="tabs__text">History:</p>
-				<ul class="history-list">
-					<li>Result 1</li>
-					<li>Result 2</li>
-					<li>...</li>
-					<li>Result 10</li>
-				</ul>
-			</div>
-
-			<!-- Holidays Tab -->
-			<div id="tab3" class="tabs__content">
-				<h2 class="tabs__title">Holidays Tab</h2>
-				<p class="tabs__text">Content for the Holidays tab goes here.</p>
-			</div>
-		</div>
-		<!-- </div> -->
-
-		<script src="js/app.js"></script>
-	</body>
+    <script src="js/app.js"></script>
+    <script src="js/dateRange.js"></script>
+  </body>
 </html>
