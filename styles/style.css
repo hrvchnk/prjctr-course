@@ -2,6 +2,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+* {
+	/* margin: 0; */
+	/* padding: 0; */
+}
+
 body {
 	display: flex;
 	justify-content: center;
@@ -62,9 +67,7 @@ body {
 	font-weight: 600;
 	font-size: 24px;
 	color: #484848;
-	margin-top: 0px;
-	margin-bottom: 15px;
-
+	margin-bottom: 20px;
 	text-align: center;
 }
 
@@ -74,158 +77,6 @@ body {
 	color: #484848;
 }
 
-/* Контент табів */
-
-/* Заголовки у контенті */
-.tabs__content h2 {
-	font-size: 22px;
-	font-weight: 600;
-	color: #2a61d8;
-	/* margin-bottom: 10px; */
-	text-align: left;
-}
-
-/* Текст у табах */
-.tabs__content p {
-	font-size: 14px;
-	line-height: 1.6;
-	color: #484848;
-	/* margin-bottom: 15px; */
-}
-
-/* Поля вводу в Range Tab */
-label {
-	display: block;
-	font-weight: 500;
-	font-size: 14px;
-	color: #2a61d8;
-	margin-bottom: 10px;
-}
-/* Вибір дати */
-input,
-select {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 10px;
-	font-size: 14px;
-	margin-bottom: 15px;
-	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
-	transition: 0.3s;
-}
-
-input:focus,
-select:focus {
-	outline: none;
-	border-color: #2a61d8;
-	box-shadow: 0px 0px 5px rgba(42, 97, 216, 0.4);
-}
-/* Опції +7 або +30 днів */
-.checkbox-container {
-	display: flex;
-	gap: 10px;
-}
-
-.custom-checkbox {
-	display: inline-block;
-	padding: 7px 20px;
-	border: 1px solid #ddd;
-	border-radius: 30px;
-	cursor: pointer;
-	transition: background-color 0.3s, color 0.3s;
-	color: #ddd;
-	margin-bottom: 20px;
-}
-
-.custom-checkbox.active {
-	background-color: #ffffff;
-	border-color: #2a61d8;
-	color: #2a61d8;
-}
-
-.custom-checkbox:hover {
-	background-color: #ffffff;
-	border-color: #2a61d8;
-	color: #2a61d8;
-}
-
-/* Кнопки */
-.result-button {
-	padding: 10px 20px;
-	font-size: 14px;
-	font-weight: 500;
-	color: #fff;
-	background: #2a61d8;
-	border: none;
-	border-radius: 20px;
-	cursor: pointer;
-	transition: 0.3s;
-	margin-top: 20px;
-}
-
-/* Останній результат */
-#last-result {
-	font-weight: bold;
-	color: #2a61d8;
-	font-size: 30px;
-}
-.last-result {
-	font-size: 30px;
-	font-weight: 800;
-	color: #484848;
-	margin-bottom: 20px;
-	margin-top: 20px;
-}
-
-.last-result span {
-	color: #2a61d8;
-	font-weight: 600;
-}
-.result-button:hover {
-	background: #1f4eb5;
-}
-
-/* Контейнер для History та Clear Results */
-.history-header {
-	color: #2a61d8;
-	justify-content: space-between;
-	align-items: center;
-	font-size: 14px;
-	margin-top: 0px;
-	margin-bottom: 0px;
-}
-/* Список результатів */
-.result-list {
-	margin: 0px 0;
-	padding: 0;
-	list-style-type: none;
-}
-
-.result-list li {
-	padding: 5px;
-	font-size: 14px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-/* Кнопка Clear Results */
-.clear-button-text {
-	font-size: 14px;
-	color: #2a61d8;
-	background: none;
-	border: none;
-	cursor: pointer;
-	padding: 0;
-	text-decoration: underline;
-	transition: 0.3s;
-}
-
-.clear-button-text:hover {
-	color: #1f4eb5;
-}
-
-/* TABS */
 .tabs__content {
 	display: none;
 }
@@ -246,10 +97,18 @@ span::after {
 	padding-left: 5px;
 }
 
+input:invalid + span::after {
+	content: '✖';
+}
+
+input:valid + span::after {
+	content: '✓';
+}
+
 /*--- Адаптивність ---*/
 @media (max-width: 768px) {
 	.tabs__title {
-		font-size: 18px;
+		/* font-size: 18px; */
 	}
 }
 
@@ -264,6 +123,7 @@ span::after {
 
 	.tabs__body {
 		padding: 15px;
+		/* min-height: 300px; */
 	}
 
 	.tabs__title {
@@ -271,6 +131,7 @@ span::after {
 	}
 
 	.tabs__text {
+		/* font-size: 12px; */
 		line-height: 1.4;
 	}
 }
