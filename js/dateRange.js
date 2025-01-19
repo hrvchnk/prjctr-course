@@ -117,9 +117,14 @@ function createResultElement(result) {
 
 	const resultText = document.createElement('span');
 	resultText.textContent = result;
-
 	li.appendChild(resultText);
-	resultList.appendChild(li);
+
+	resultList.prepend(li); // метод додавання на початок списку
+
+	const results = resultList.children;
+	if (results.length > 10) {
+		resultList.removeChild(results[results.length - 1]); // за індекстом отримуємо список результатів -1 і видаляємо його
+	}
 }
 
 // Оновлення останнього результату
