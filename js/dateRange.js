@@ -14,103 +14,18 @@ function calculateDateRange(startDate, endDate, rangeType) {
 			return 'Error';
 	}
 }
+// обчислення дат
+function dateRangeCalculation(startDate, endDate, rangeType) {
+	const result = calculateDateRange(startDate, endDate, rangeType);
 
-// Список для результатів
-const resultList = document.querySelector('.result-list');
-
-// Збереження результатів в локальне сховище
-function saveResultsToLocalStorage(results) {
-	localStorage.setItem('results', JSON.stringify(results));
-}
-
-function getResultsFromLocalStorage() {
-	return JSON.parse(localStorage.getItem('results')) || [];
-}
-
-// Завантаження результатів при старті
-document.addEventListener('DOMContentLoaded', () => {
-	const startDateInput = document.getElementById('start-date');
-
-	// Сьогоднішня дата для input
-	const today = new Date();
-	const todayFormatted = today.toISOString().split('T')[0];
-	startDateInput.value = todayFormatted;
-
-	// Завантаження історії з локального сховища
-	const results = getResultsFromLocalStorage();
-	results.forEach(createResultElement);
-});
-
-// Додавання результату в список
-function createResultElement(result) {
-	const li = document.createElement('li');
-	li.className = 'result-item';
-
-	const resultText = document.createElement('span');
-	resultText.textContent = result;
-
-	li.appendChild(resultText);
-	resultList.appendChild(li);
-}
-
-// Очищення історії результатів
-function clearResults() {
-	resultList.innerHTML = ''; // очищуємо список
-	localStorage.removeItem('results'); // очищуємо localStorage
-	updateLastResult(null); // обнулити останній результат
-}
-document.getElementById('clear-button').addEventListener('click', clearResults);
-
-// Оновлення останнього результату
-function updateLastResult(result) {
-	const lastResultSpan = document.getElementById('last-result');
-	lastResultSpan.textContent = result ? result : '0';
-}
-
-// Обробка кнопок
-document.querySelectorAll('.result-button').forEach(button => {
-	button.addEventListener('click', function () {
-		const rangeType = this.dataset.range || this.textContent.toLowerCase();
-		const startDateInput = document.getElementById('start-date');
-		const endDateInput = document.getElementById('end-date');
-
-		const startDate = new Date(startDateInput.value);
-		const endDate = new Date(endDateInput.value);
-
-		// Перевірка правильності дат
-		if (!checkCorrectDateValue(startDate, endDate)) {
-			return;
-		}
-
-		const result = calculateDateRange(startDate, endDate, rangeType);
-		if (result !== 'Error') {
-			createResultElement(result);
-			storeResultInLocalStorage(result);
-			updateLastResult(result);
-		} else {
-			console.error('Error calculateDateRange');
-		}
-	});
-});
-
-// Перевірка правильності значень дат
-function checkCorrectDateValue(startDate, endDate) {
-	if (isNaN(startDate) || isNaN(endDate)) {
-		alert('Виберіть дату');
-		return false;
+	if (result === 'Error') {
+		console.error('Помилка обчислення діапазону дат');
+		return;
 	}
-	if (startDate > endDate) {
-		alert('Початкова дата менша за кінцеву');
-		return false;
-	}
-	return true;
-}
 
-// Збереження результатів в локальне сховище
-function storeResultInLocalStorage(result) {
-	const results = getResultsFromLocalStorage();
-	results.push(result);
-	saveResultsToLocalStorage(results);
+	createResultElement(result);
+	updateLocalStorage(result);
+	updateLastResult(result);
 }
 
 // чекбокси +тиждень, +місяць
@@ -130,3 +45,108 @@ document.querySelectorAll('.custom-checkbox').forEach(item => {
 		}
 	});
 });
+
+// загальна кількість днів / робочих днів / вихідних
+function calculateDaysBetweenDates(startDate, endDate) {
+	let totalDays = 0;
+	let weekdays = 0;
+	let weekends = 0;
+}
+
+// localStorage:
+function getResultsFromLocalStorage() {
+	return JSON.parse(localStorage.getItem('results')) || [];
+}
+function updateLocalStorage(result) {
+	const results = getResultsFromLocalStorage();
+	results.push(result);
+	localStorage.setItem('results', JSON.stringify(results));
+}
+
+// // Збереження результатів в локальне сховище
+// function saveResultsToLocalStorage(results) {
+// 	localStorage.setItem('results', JSON.stringify(results));
+// }
+// // Збереження результатів в локальне сховище
+// function storeResultInLocalStorage(result) {
+// 	const results = getResultsFromLocalStorage();
+// 	results.push(result);
+// 	saveResultsToLocalStorage(results);
+// }
+
+// Завантаження результатів при старті
+document.addEventListener('DOMContentLoaded', () => {
+	const startDateInput = document.getElementById('start-date');
+
+	// Сьогоднішня дата для input
+	const today = new Date();
+	const todayFormatted = today.toISOString().split('T')[0];
+	startDateInput.value = todayFormatted;
+
+	// Завантаження історії з локального сховища
+	const results = getResultsFromLocalStorage();
+	results.forEach(createResultElement);
+});
+
+// Обробка кнопок
+document.querySelectorAll('.result-button').forEach(button => {
+	button.addEventListener('click', function () {
+		const rangeType = this.dataset.range || this.textContent.toLowerCase();
+		const startDateInput = document.getElementById('start-date');
+		const endDateInput = document.getElementById('end-date');
+
+		const startDate = new Date(startDateInput.value);
+		const endDate = new Date(endDateInput.value);
+
+		// Перевірка правильності дат
+		if (!checkCorrectDateValue(startDate, endDate)) {
+			return;
+		}
+		dateRangeCalculation(startDate, endDate, rangeType);
+	});
+});
+
+// допоміжні функції відображення результатів:
+// Список для результатів
+const resultList = document.querySelector('.result-list');
+
+// Додавання результату в список
+function createResultElement(result) {
+	const li = document.createElement('li');
+	li.className = 'result-item';
+
+	const resultText = document.createElement('span');
+	resultText.textContent = result;
+
+	li.appendChild(resultText);
+	resultList.appendChild(li);
+}
+
+// Оновлення останнього результату
+function updateLastResult(result) {
+	const lastResultSpan = document.getElementById('last-result');
+	lastResultSpan.textContent = result ? result : '0';
+}
+
+// Очищення історії результатів
+function clearResults() {
+	resultList.innerHTML = ''; // очищуємо список
+	localStorage.removeItem('results'); // очищуємо localStorage
+	updateLastResult(null); // обнулити останній результат
+}
+document.getElementById('clear-button').addEventListener('click', clearResults);
+
+// ERROR:
+
+// Перевірка правильності значень дат
+function checkCorrectDateValue(startDate, endDate) {
+	if (isNaN(startDate) || isNaN(endDate)) {
+		alert('Виберіть дату');
+		return false;
+	}
+	if (startDate > endDate) {
+		alert('Початкова дата менша за кінцеву');
+		return false;
+	}
+	return true;
+}
