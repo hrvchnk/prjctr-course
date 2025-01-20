@@ -1,99 +1,39 @@
-// Змінив стилі для комопнентів;
-// прибрав form за твоїми вказівками;
-// додав збереження в локальне сховище, отримання данних з нього при перезавантаженні сторінки;
-// після натискання на кнопки розрахунок виводиться не в консоль, а в label результату і записується в історію;
-// додав кнопку очищення історіі;
-// додав чекбокси +тижден і +місяць до початкової дати (ще не виконав їх функціонал, тільки вивід в консоль натискання їх)
-// Функція для обчислення
-function calculateDateRange(startDate, endDate, rangeType) {
-	const diffInMs = Math.abs(endDate - startDate);
-	switch (rangeType) {
-		case 'seconds':
-			return `${Math.floor(diffInMs / 1000)} seconds`;
-		case 'minutes':
-			return `${Math.floor(diffInMs / (1000 * 60))} minutes`;
-		case 'hours':
-			return `${Math.floor(diffInMs / (1000 * 60 * 60))} hours`;
-		case 'days':
-			return `${Math.floor(diffInMs / (1000 * 60 * 60 * 24))} days`;
-		default:
-			return 'Error';
-	}
-}
-// обчислення дат
-function dateRangeCalculation(startDate, endDate, rangeType) {
-	const result = calculateDateRange(startDate, endDate, rangeType);
-
-	if (result === 'Error') {
-		console.error('Error: dateRangeCalculation');
-		return;
-	}
-
-	createResultElement(result);
-	updateLocalStorage(result);
-	updateLastResult(result);
-}
-
-// чекбокси +тиждень, +місяць
-document.querySelectorAll('.custom-checkbox').forEach(item => {
-	item.addEventListener('click', function () {
-		const isChecked = item.checked;
-		const startDateInput = document.getElementById('start-date');
-		const endDateInput = document.getElementById('end-date');
-
-		const startDate = new Date(startDateInput.value);
-
-		if (item.checked) {
-			console.log(`Checkbox ${item.id} is selected.`);
-		} else {
-			console.log(`Checkbox ${item.id} is deselected.`);
-		}
-	});
-});
-
-// масив для зберігвання дат перед їх підрахунком, для фільтрації
-function arrayDates(startDate, endDate) {
-	const dates = [];
-	let currentDate = new Date(startDate);
-	while (currentDate <= endDate) {
-		dates.push(new Date(currentDate));
-		currentDate.setDate(currentDate.getDate() + 1);
-	}
-	return dates;
-}
-
-// загальна кількість днів / робочих днів / вихідних
-function calculateDaysBetweenDates(startDate, endDate) {
-	let totalDays = 0;
-	let weekdays = 0;
-	let weekends = 0;
-}
-
-// localStorage:
-function getResultsFromLocalStorage() {
-	return JSON.parse(localStorage.getItem('results')) || [];
-}
-function updateLocalStorage(result) {
-	const results = getResultsFromLocalStorage();
-	results.push(result);
-	localStorage.setItem('results', JSON.stringify(results));
-}
-
-// Завантаження результатів при старті
+// отримання значень при старті та
 document.addEventListener('DOMContentLoaded', () => {
 	const startDateInput = document.getElementById('start-date');
+	const endDateInput = document.getElementById('end-date');
+	const resultList = document.querySelector('.result-list');
+	const lastResultSpan = document.getElementById('last-result');
 
-	// Сьогоднішня дата для input
+	// початкова дата - сьогодні
 	const today = new Date();
 	const todayFormatted = today.toISOString().split('T')[0];
 	startDateInput.value = todayFormatted;
 
+	// чекбокси додавання до початкової дати: +7 днів (тиждень) / +30 днів (місяць)
+	document.getElementById('preset-7days').addEventListener('click', () => {
+		let endDate = new Date(endDateInput.value || startDateInput.value); // якщо вибрана кінцева дата, то додасть дні, якщо ні, то встановить стартову дату+7 днів
+		endDate.setDate(endDate.getDate() + 7);
+
+		endDateInput.value = endDate.toISOString().split('T')[0];
+		console.log('+тиждень (7 днів), Кінцева дата: ', endDateInput.value);
+	});
+
+	document.getElementById('preset-30days').addEventListener('click', () => {
+		let endDate = new Date(endDateInput.value || startDateInput.value);
+		endDate.setDate(endDate.getDate() + 30);
+
+		endDateInput.value = endDate.toISOString().split('T')[0];
+		console.log('+місяць (30 днів), Кінцева дата: ', endDateInput.value);
+	});
+
 	// Завантаження історії з локального сховища
 	const results = getResultsFromLocalStorage();
-	results.forEach(createResultElement);
+	results.forEach(resultsListHistory);
 });
 
-// Обробка кнопок
+// кнопки
+// кнопки розрахунку інтвервалу між датами
 document.querySelectorAll('.result-button').forEach(button => {
 	button.addEventListener('click', function () {
 		const rangeType = this.dataset.range || this.textContent.toLowerCase();
@@ -110,32 +50,95 @@ document.querySelectorAll('.result-button').forEach(button => {
 		dateRangeCalculation(startDate, endDate, rangeType);
 	});
 });
+// очищення історії результатів
+document.getElementById('clear-button').addEventListener('click', clearResults);
 
+// фільтрація по робочим дням, вихідним, або усі дні
+function filterDayOfWeek(dates, mode) {
+	return dates.filter(date => {
+		const dayOfWeek = date.getDay();
+		switch (mode) {
+			case 'all':
+				return true;
+			case 'workdays':
+				return dayOfWeek >= 1 && dayOfWeek <= 5;
+			case 'weekends':
+				return dayOfWeek === 0 || dayOfWeek === 6;
+			default:
+				return false;
+		}
+	});
+}
+
+// обчислення інтервалубез фільтрацій
+function calculateDateRange(startDate, endDate, rangeType) {
+	const diffInMs = Math.abs(endDate - startDate);
+	switch (rangeType) {
+		case 'seconds':
+			return `${Math.floor(diffInMs / 1000)} seconds`;
+		case 'minutes':
+			return `${Math.floor(diffInMs / (1000 * 60))} minutes`;
+		case 'hours':
+			return `${Math.floor(diffInMs / (1000 * 60 * 60))} hours`;
+		case 'days':
+			return `${Math.floor(diffInMs / (1000 * 60 * 60 * 24))} days`;
+		default:
+			return 'Error';
+	}
+}
+
+// загальне обчислення обчислення дат
+function dateRangeCalculation(startDate, endDate, rangeType) {
+	const result = calculateDateRange(startDate, endDate, rangeType);
+
+	if (result === 'Error') {
+		console.error('Error: dateRangeCalculation()');
+		return;
+	}
+
+	resultsListHistory(result);
+	updateLocalStorage(result);
+	updateLastResult(result);
+}
+
+// масив для зберігвання дат перед їх підрахунком, для фільтрації
+function arrayDates(startDate, endDate) {
+	const dates = [];
+	let currentDate = new Date(startDate);
+	while (currentDate <= endDate) {
+		dates.push(new Date(currentDate));
+
+		currentDate.setDate(currentDate.getDate() + 1);
+	}
+	return dates;
+}
 // допоміжні функції відображення результатів:
-// Список для результатів
+// Додавання результату в список
 const resultList = document.querySelector('.result-list');
 
-// Додавання результату в список
-function createResultElement(result) {
+function resultsListHistory(result) {
 	const li = document.createElement('li');
-	li.className = 'result-item';
+	li.textContent = result;
 
-	const resultText = document.createElement('span');
-	resultText.textContent = result;
-	li.appendChild(resultText);
+	resultList.prepend(li); // на початок списку, метод prepend
 
-	resultList.prepend(li); // метод додавання на початок списку
-
-	const results = resultList.children;
-	if (results.length > 10) {
-		resultList.removeChild(results[results.length - 1]); // за індекстом отримуємо список результатів -1 і видаляємо його
+	// ліміт історії
+	if (resultList.children.length > 10) {
+		resultList.removeChild(resultList.lastChild);
 	}
+
+	console.log(
+		'resultsListHistory(result):',
+		Array.from(resultList.children).map(item => item.textContent)
+	);
 }
 
 // Оновлення останнього результату
 function updateLastResult(result) {
 	const lastResultSpan = document.getElementById('last-result');
 	lastResultSpan.textContent = result ? result : '0';
+
+	console.log('updateLastResult():', result);
 }
 
 // Очищення історії результатів
@@ -144,14 +147,22 @@ function clearResults() {
 	localStorage.removeItem('results'); // очищуємо localStorage
 	updateLastResult(null); // обнулити останній результат
 }
-document.getElementById('clear-button').addEventListener('click', clearResults);
+
+// localStorage:
+function getResultsFromLocalStorage() {
+	return JSON.parse(localStorage.getItem('results')) || [];
+}
+function updateLocalStorage(result) {
+	const results = getResultsFromLocalStorage();
+	results.push(result);
+	localStorage.setItem('results', JSON.stringify(results));
+}
 
 // ERROR:
-
 // Перевірка правильності значень дат
 function checkCorrectDateValue(startDate, endDate) {
 	if (isNaN(startDate) || isNaN(endDate)) {
-		alert('Виберіть дату');
+		alert('Виберіть кінцеву дату');
 		return false;
 	}
 	if (startDate > endDate) {
