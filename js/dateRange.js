@@ -25,7 +25,7 @@ function dateRangeCalculation(startDate, endDate, rangeType) {
 	const result = calculateDateRange(startDate, endDate, rangeType);
 
 	if (result === 'Error') {
-		console.error('Помилка обчислення діапазону дат');
+		console.error('Error: dateRangeCalculation');
 		return;
 	}
 
@@ -41,7 +41,6 @@ document.querySelectorAll('.custom-checkbox').forEach(item => {
 		const startDateInput = document.getElementById('start-date');
 		const endDateInput = document.getElementById('end-date');
 
-		// Отримуємо поточну початкову дату
 		const startDate = new Date(startDateInput.value);
 
 		if (item.checked) {
@@ -51,6 +50,17 @@ document.querySelectorAll('.custom-checkbox').forEach(item => {
 		}
 	});
 });
+
+// масив для зберігвання дат перед їх підрахунком, для фільтрації
+function arrayDates(startDate, endDate) {
+	const dates = [];
+	let currentDate = new Date(startDate);
+	while (currentDate <= endDate) {
+		dates.push(new Date(currentDate));
+		currentDate.setDate(currentDate.getDate() + 1);
+	}
+	return dates;
+}
 
 // загальна кількість днів / робочих днів / вихідних
 function calculateDaysBetweenDates(startDate, endDate) {
@@ -68,17 +78,6 @@ function updateLocalStorage(result) {
 	results.push(result);
 	localStorage.setItem('results', JSON.stringify(results));
 }
-
-// // Збереження результатів в локальне сховище
-// function saveResultsToLocalStorage(results) {
-// 	localStorage.setItem('results', JSON.stringify(results));
-// }
-// // Збереження результатів в локальне сховище
-// function storeResultInLocalStorage(result) {
-// 	const results = getResultsFromLocalStorage();
-// 	results.push(result);
-// 	saveResultsToLocalStorage(results);
-// }
 
 // Завантаження результатів при старті
 document.addEventListener('DOMContentLoaded', () => {
