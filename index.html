@@ -107,17 +107,17 @@
           <label for="end-date">End Date</label>
           <input type="date" id="end-date" name="end-date" />
 
-          <label for="options-selector">Select options</label>
-          <select id="options-selector">
+          <label for="options-selector-filter-day-of-week">Select options</label>
+          <select id="options-selector-filter-day-of-week">
             <option value="all">All days</option>
-            <option value="work">Work days</option>
-            <option value="holidays">Holidays</option>
+            <option value="workdays">Workdays</option>
+            <option value="weekends">Weekends</option>
           </select>
         </div>
 
         <!-- Buttons -->
         <div class="tabs__actions">
-          <button id="day-button" class="result-button" data-range="day">
+          <button id="day-button" class="result-button" data-range="days">
             Day
           </button>
           <button id="hours-button" class="result-button" data-range="hours">
@@ -134,7 +134,7 @@
 
 				 <!-- History -->
         <p class="history-header">
-					<label for="history">History:</label>
+					<label for="text">History:</label>
           <ul class="result-list"></ul>
           <button id="clear-button" class="clear-button-text">
             Clear history
@@ -147,7 +147,7 @@
       <div id="tab3" class="tabs__content">
         <h2 class="tabs__title">Holidays Tab</h2>
         <p class="tabs__text">Content for the Holidays tab goes here.</p>
-
+				<button onclick="getCountryList()">Отримати список країн</button>
 				<label for="options-selector">Select country</label>
 				<select id="options-selector">
 					<option value="all">All country</option>
@@ -181,6 +181,7 @@
 
     <script src="js/app.js"></script>
     <script src="js/dateRange.js"></script>
+		<script src="js/holidays.js"/></script>
 
 
 		<script>
