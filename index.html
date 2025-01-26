@@ -87,7 +87,7 @@
 			<!-- ****** Task 1 ****** -->
       <!-- Range Tab -->
       <div id="tab2" class="tabs__content">
-        <h2 class="tabs__title">⏱️ Date Range Calculation</h2>
+        <h2 class="tabs__title">⏱️ Date Range Calculator</h2>
 
         <!-- Date Pickers -->
         <div class="date-pickers">
@@ -120,11 +120,11 @@
           <button id="day-button" class="result-button" data-range="days">
             Day
           </button>
-          <button id="hours-button" class="result-button" data-range="hours">
+          <button id="hours-button" class="result-button" data-range="hours" data-range="hours">
             Hours
           </button>
-          <button id="minutes-button" class="result-button">Minutes</button>
-          <button id="seconds-button" class="result-button">Seconds</button>
+          <button id="minutes-button" class="result-button" data-range="minutes">Minutes</button>
+          <button id="seconds-button" class="result-button" data-range="seconds">Seconds</button>
         </div>
 
         <!-- Result -->
@@ -144,44 +144,53 @@
 			
 			<!-- ****** Task 2 ****** -->
       <!-- Holidays Tab -->
+   <!-- Holidays Tab -->
       <div id="tab3" class="tabs__content">
         <h2 class="tabs__title">Holidays Tab</h2>
         <p class="tabs__text">Content for the Holidays tab goes here.</p>
-				<button onclick="getCountryList()">Отримати список країн</button>
-				<label for="options-selector">Select country</label>
-				<select id="options-selector">
-					<option value="all">All country</option>
-				</select>
+        
+        <!-- Список країн -->
+        <label for="country-selector">Select country</label>
+        <select id="country-selector">
+          <!-- <option value="all">All countries</option> -->
+        </select>
+        
+        <!-- Список років -->
+        <label for="year-selector">Select year</label>
+        <select id="year-selector">
 
-				<label for="options-selector">Select year</label>
-				<select id="options-selector" >
-					<option value="all">2001</option>
-					<option value="all">2002</option>
-				</select>
-
-				<input type="text" id="dateFilter" onkeyup="filterTable()" placeholder="Search">
-
-				<table id="myTable">
-						<thead>
-								<tr>
-										<th>Date 	
-											<button id="sortButton" onclick="toggleSort()" aria-label="Sort">
-                        <span id="sortIcon">⬆️</span> 
-                    </button>
-									</th>
-										<th>Holidays</th>
-								</tr>
-						</thead>
-						<tbody>
-							
-						</tbody>
-				</table>
+        </select>
+        
+        <!-- Фільтр для пошуку -->
+        <input type="text" id="dateFilter" onkeyup="filterTable()" placeholder="Search for holidays">
+        
+        <!-- Таблиця для відображення свят -->
+        <table id="myTable">
+          <thead>
+            <tr>
+              <th>Date
+                <button id="sortButton" onclick="toggleSort()" aria-label="Sort">
+                  <span id="sortIcon">⬆️</span>
+                </button>
+              </th>
+              <th>Holidays</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Дані будуть динамічно додані через JavaScript -->
+          </tbody>
+        </table>
       </div>
     </div>
 
     <script src="js/app.js"></script>
-    <script src="js/dateRange.js"></script>
-		<script src="js/holidays.js"/></script>
+    <!-- <script src="js/dateRangeCalculate/test/index.js" type="module" defer></script> -->
+    <!-- <script src="js/dateRangeCalculate/oldNew.js" type="module" defer></script> -->
+    <script src="js/dateRangeCalculator/index.js" type="module" defer></script>
+    <!-- <script src="js/dateRangeCalculate/newAll.js" type="module" defer></script> -->
+
+
+		<script type="module" src="./js/holidays/index.js"></script>
 
 
 		<script>
