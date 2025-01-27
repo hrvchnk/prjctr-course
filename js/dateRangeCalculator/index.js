@@ -30,8 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// відображення результатів з localStorage (storage.js)
 	const results = getResultsFromLocalStorage();
-	results.forEach(result => resultsListHistory(result, resultList));
-
+	// results.forEach(result => resultsListHistory(result, resultList));
+	// підзавантаження і відображення з locaStorage результатів + відображення початкової дати, кінцевої і одиниці розрахунку
+	results.forEach(({ result, timeUnit, startDate, endDate }) =>
+		resultsListHistory(result, resultList, timeUnit, startDate, endDate)
+	);
 	// робота з кнопками
 	document.querySelectorAll('.result-button').forEach(button => {
 		button.addEventListener('click', () => {
@@ -58,10 +61,44 @@ document.addEventListener('DOMContentLoaded', () => {
 			);
 			console.log('result', result);
 
-			resultsListHistory(result, resultList);
-			updateLocalStorage(result);
+			// до історії результатів
+			resultsListHistory(
+				result,
+				resultList,
+				timeUnit,
+				startDate.toISOString().split('T')[0],
+				endDate.toISOString().split('T')[0]
+			);
+
+			updateLocalStorage(
+				result,
+				timeUnit,
+				startDate.toISOString().split('T')[0],
+				endDate.toISOString().split('T')[0]
+			);
+
 			updateLastResult(result, lastResultSpan);
+
+			// без додатковох інформації в історії
+			// resultsListHistory(result, resultList, timeUnit);
+			// updateLocalStorage(result, timeUnit);
+			// updateLastResult(result, lastResultSpan, timeUnit);
 		});
+	});
+
+	// чекбокси додавання до початкової дати: +7 днів (тиждень) / +30 днів (місяць)
+	document.getElementById('preset-7days').addEventListener('click', () => {
+		let endDate = new Date(endDateInput.value || startDateInput.value); // якщо вибрана кінцева дата, то додасть дні, якщо ні, то встановить стартову дату і+7 днів
+		endDate.setDate(endDate.getDate() + 7);
+		endDateInput.value = endDate.toISOString().split('T')[0];
+		console.log('+тиждень (7 днів), Кінцева дата: ', endDateInput.value);
+	});
+
+	document.getElementById('preset-30days').addEventListener('click', () => {
+		let endDate = new Date(endDateInput.value || startDateInput.value);
+		endDate.setDate(endDate.getDate() + 30);
+		endDateInput.value = endDate.toISOString().split('T')[0];
+		console.log('+місяць (30 днів), Кінцева дата: ', endDateInput.value);
 	});
 
 	// кнопка очищення результату, історії результатів та localStorage

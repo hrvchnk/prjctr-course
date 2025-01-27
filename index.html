@@ -88,7 +88,8 @@
       <!-- Range Tab -->
       <div id="tab2" class="tabs__content">
         <h2 class="tabs__title">⏱️ Date Range Calculator</h2>
-
+        <p class="tabs__text">Use our date range calculator to find the number </br>of days between two dates</p>
+        
         <!-- Date Pickers -->
         <div class="date-pickers">
           <label for="start-date">Start Date</label>
@@ -157,15 +158,15 @@
         
         <!-- Список років -->
         <label for="year-selector">Select year</label>
-        <select id="year-selector">
+        <select id="year-selector"></select>
 
-        </select>
-        
+        <button id="show-holidays-button"  class="holidays-button"  disabled>👇🏻 Show Holidays 👇🏻</button>
+
         <!-- Фільтр для пошуку -->
         <input type="text" id="dateFilter" onkeyup="filterTable()" placeholder="Search for holidays">
         
         <!-- Таблиця для відображення свят -->
-        <table id="myTable">
+        <table id="table_result">
           <thead>
             <tr>
               <th>Date
@@ -190,7 +191,7 @@
     <!-- <script src="js/dateRangeCalculate/newAll.js" type="module" defer></script> -->
 
 
-		<script type="module" src="./js/holidays/index.js"></script>
+		<!-- <script type="module" src="./js/holidays/index.js"></script> -->
 
 
 		<script>

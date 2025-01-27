@@ -12,12 +12,31 @@ body {
 	background: #f3f4fb;
 }
 
-.tabs {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	/* max-width: 400px; */
-	width: 100%;
+/* 
+*
+*	Таби, кнопки табів, поле контенту табів
+*
+*/
+
+/* TABS */
+.tabs__content {
+	display: none;
+}
+
+.tabs__toggle.is-active {
+	background: #e7eef8;
+}
+
+.tabs__toggle.is-active .tabs__name {
+	color: #2a61d8;
+}
+
+.tabs__content.is-active {
+	display: block;
+}
+
+span::after {
+	padding-left: 5px;
 }
 
 .tabs__head {
@@ -38,7 +57,6 @@ body {
 	background: #fff;
 	border-radius: 20px;
 	cursor: pointer;
-	/* text-align: center; */
 	transition: 0.5s;
 }
 
@@ -58,21 +76,31 @@ body {
 	min-height: 500px;
 }
 
+/*
+*
+*	контент у табах
+*
+*/
 .tabs__title {
-	font-weight: 600;
-	font-size: 24px;
-	color: #484848;
 	margin-top: 0px;
-	margin-bottom: 15px;
-
-	text-align: center;
 }
 
-.tabs__text {
+/* Заголовки у контенті */
+.tabs__content h2 {
+	font-size: 22px;
+	font-weight: 600;
+	color: #2a61d8;
+	text-align: left;
+}
+
+/* Текст у табах */
+.tabs__content p {
+	margin-top: 0px;
 	font-size: 14px;
-	line-height: 1.2;
+	line-height: 1.6;
 	color: #484848;
 }
+
 /* показати/сховати текст завдань */
 .hidden-text {
 	display: none;
@@ -83,25 +111,6 @@ body {
 	color: #2a61d8;
 	/* text-decoration: underline; */
 	cursor: pointer;
-}
-
-/* Контент табів */
-
-/* Заголовки у контенті */
-.tabs__content h2 {
-	font-size: 22px;
-	font-weight: 600;
-	color: #2a61d8;
-	/* margin-bottom: 10px; */
-	text-align: left;
-}
-
-/* Текст у табах */
-.tabs__content p {
-	font-size: 14px;
-	line-height: 1.6;
-	color: #484848;
-	/* margin-bottom: 15px; */
 }
 
 /* Поля вводу в Range Tab */
@@ -116,6 +125,7 @@ label {
 input,
 select {
 	width: 100%;
+	box-sizing: border-box;
 	padding: 10px;
 	border: 1px solid #ddd;
 	border-radius: 10px;
@@ -124,14 +134,20 @@ select {
 	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
 	transition: 0.3s;
 }
-
+input[type='date'],
+select {
+	width: 100%;
+}
 input:focus,
 select:focus {
 	outline: none;
 	border-color: #2a61d8;
 	box-shadow: 0px 0px 5px rgba(42, 97, 216, 0.4);
 }
-/* Опції +7 або +30 днів */
+
+/* 	
+	опціі: +7 або +30 днів 
+*/
 .checkbox-container {
 	display: flex;
 	gap: 10px;
@@ -139,13 +155,12 @@ select:focus {
 
 .custom-checkbox {
 	display: inline-block;
-	padding: 7px 20px;
+	padding: 10px 10px;
 	border: 1px solid #ddd;
 	border-radius: 30px;
 	cursor: pointer;
 	transition: background-color 0.3s, color 0.3s;
 	color: #ddd;
-	margin-bottom: 20px;
 }
 
 .custom-checkbox.active {
@@ -160,7 +175,7 @@ select:focus {
 	color: #2a61d8;
 }
 
-/* Кнопки */
+/* Кнопки Range */
 .result-button {
 	padding: 10px 20px;
 	font-size: 14px;
@@ -172,6 +187,7 @@ select:focus {
 	cursor: pointer;
 	transition: 0.3s;
 	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 /* Останній результат */
@@ -235,26 +251,24 @@ select:focus {
 .clear-button-text:hover {
 	color: #1f4eb5;
 }
-
-/* TABS */
-.tabs__content {
-	display: none;
+/* Кнопки Holidays */
+.holidays-button {
+	padding: 10px 20px;
+	font-size: 14px;
+	font-weight: 500;
+	color: #fff;
+	background: #2a61d8;
+	border: none;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
-
-.tabs__toggle.is-active {
+.holidays-button:disabled {
 	background: #e7eef8;
-}
-
-.tabs__toggle.is-active .tabs__name {
 	color: #2a61d8;
-}
-
-.tabs__content.is-active {
-	display: block;
-}
-
-span::after {
-	padding-left: 5px;
+	cursor: not-allowed;
 }
 
 /*--- Адаптивність ---*/
@@ -301,7 +315,7 @@ th {
 }
 input[type='text'] {
 	width: 100%;
-	padding: 8px;
+	padding: 10px;
 	box-sizing: border-box;
 }
 #sortButton {

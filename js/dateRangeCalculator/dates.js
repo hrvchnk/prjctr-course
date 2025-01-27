@@ -44,6 +44,7 @@ export function convertMilliseconds(durationInMs, timeUnit) {
 
 // основна функція рохрахунку
 export function calculateDateRangeForFilteredDates(filteredDates, timeUnit) {
+	// якщо вибрані дні, то без фільтрації одразу вивести результат довжини
 	if (timeUnit === 'days') {
 		return `${filteredDates.length} days`;
 	}
@@ -57,9 +58,10 @@ export function calculateDateRangeForFilteredDates(filteredDates, timeUnit) {
 
 	const convertedValue = convertMilliseconds(totalMilliseconds, timeUnit);
 
+	// перевірка конвертації
 	if (convertedValue !== null) {
 		return `${convertedValue} ${timeUnit}`;
 	} else {
-		return 'Error';
+		return console.log('помилка в convertedValue');
 	}
 }
