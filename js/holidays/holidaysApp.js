@@ -1,65 +1,98 @@
-import { API_KEY, countrySelect, urlCountryList } from './constants.js';
+import { API_KEY, urlCountryList, urlHolidaysList } from './constants.js';
+import {
+	displayHolidays,
+	initDOM,
+	updateCountryList,
+	updateYearList,
+} from './dom.js';
+import { handleError } from './error.js';
 
 export class HolidaysApp {
 	constructor() {
 		this.API_KEY = API_KEY;
+		const { countrySelect, yearSelector, showHolidaysButton } = initDOM();
+		this.countrySelect = countrySelect;
+		this.yearSelector = yearSelector;
+		this.showHolidaysButton = showHolidaysButton;
+		this.selectedCountry = '';
+		this.selectedYear = new Date().getFullYear();
+		this.addEventListeners();
 	}
 
-	// отримання країн по API
+	// запити на апі:
+	// отримання країн
 	fetchCountries = () => {
 		fetch(`${urlCountryList}?api_key=${this.API_KEY}`)
 			.then(response => {
 				if (!response.ok) {
 					throw new Error(`Помилка: ${response.status}`);
 				}
-
-				console.log(response);
-
+				console.log('*API* список країн отриман');
 				return response.json();
 			})
 			.then(data => {
-				this.updateDOM(data);
-				console.log(data.response.countries);
+				updateCountryList(data.response.countries, this.countrySelect);
+				updateYearList(this.yearSelector);
 			})
 			.catch(error => {
-				this.handleError(error);
+				handleError(error, 'ERROR країн');
+			});
+	};
+	// отримання свят для вибраної країни та року
+	fetchHolidays = () => {
+		const url = `${urlHolidaysList}?api_key=${this.API_KEY}&country=${this.selectedCountry}&year=${this.selectedYear}`;
+		fetch(url)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error(`Помилка: ${response.status}`);
+				}
+				console.log('*API* список свят отриман');
+				return response.json();
+			})
+			.then(data => {
+				displayHolidays(data, document.querySelector('#table_result tbody'));
+			})
+			.catch(error => {
+				handleError(error, 'ERROR Свята');
 			});
 	};
 
-	// dom
-	updateDOM = data => {
-		const countries = data.response.countries;
-
-		countrySelect.innerHTML = '';
-
-		const defaultOption = document.createElement('option');
-		defaultOption.value = 'all';
-		defaultOption.textContent = 'Select country';
-		countrySelect.appendChild(defaultOption);
-
-		countries.forEach(country => {
-			const option = document.createElement('option');
-			option.value = country.iso_3166;
-			option.textContent = country.country_name;
-			countrySelect.appendChild(option);
-		});
+	// взаємодія:
+	// вибір року
+	handleYearChange = event => {
+		// this.yearSelector.value = this.selectedYear;
+		this.selectedYear = event.target.value;
+		console.log(`Вибраний рік: ${this.selectedYear}`);
 	};
-	updateYearList = () => {
-		for (let i = 2001; i <= 2049; i++) {
-			const option = document.createElement('option');
-			option.value = i;
-			option.textContent = i;
-			yearSelector.appendChild(option);
+
+	// вибір країни
+	handleCountryChange = event => {
+		this.selectedCountry = event.target.value; // ISO-код вибраної країни
+		console.log(`Вибрана країна: ${this.selectedCountry}`);
+
+		// поки не вибрана країна disable: Вибір року і кнопка Show Holidays
+		if (this.selectedCountry !== 'all') {
+			this.yearSelector.disabled = false;
+			this.showHolidaysButton.disabled = false;
+		} else {
+			this.yearSelector.disabled = true;
+			this.showHolidaysButton.disabled = true;
 		}
-
-		yearSelector.value = new Date().getFullYear();
 	};
 
-	/**
-	помилки
-	 */
-	handleError = error => {
-		console.error('Помилка завантаження даних:', error);
-		alert('Не вдалося завантажити список країн');
+	// кнопка "Показати свята"
+	handleShowHolidaysClick = () => {
+		if (this.selectedCountry !== 'all' && this.selectedYear) {
+			this.fetchHolidays(); // якщо країна і рік вибрані, робимо запит на свята
+		}
+	};
+
+	addEventListeners = () => {
+		this.countrySelect.addEventListener('change', this.handleCountryChange);
+		this.yearSelector.addEventListener('change', this.handleYearChange);
+		this.showHolidaysButton.addEventListener(
+			'click',
+			this.handleShowHolidaysClick
+		);
 	};
 }
