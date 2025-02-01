@@ -1,12 +1,3 @@
-// ДОМ елементи
-export const initDOM = () => {
-	const countrySelect = document.getElementById('country-selector');
-	const yearSelector = document.getElementById('year-selector');
-	const showHolidaysButton = document.getElementById('show-holidays-button');
-
-	return { countrySelect, yearSelector, showHolidaysButton };
-};
-
 // список країн (за замовчуванням і отримання списку країн з прапором)
 export const updateCountryList = (countries, countrySelect) => {
 	const defaultOption = document.createElement('option');
@@ -33,7 +24,45 @@ export const updateYearList = yearSelector => {
 	yearSelector.value = new Date().getFullYear();
 };
 
-// відображення свят
-export const displayHolidays = data => {
-	console.log('усі свята разом', data);
+// сортування
+const sortHolidays = (holidays, sortType) => {
+	return holidays.sort((a, b) => {
+		const dateA = new Date(a.date.iso);
+		const dateB = new Date(b.date.iso);
+
+		if (sortType === 'asc') {
+			return dateA - dateB;
+		} else {
+			return dateB - dateA;
+		}
+	});
 };
+
+// відображення свят
+const displayHolidays = (holidays, tableBody, sortType = 'asc') => {
+	console.log(`свята сортовані по: ${sortType}`, holidays);
+	tableBody.innerHTML = '';
+
+	const sortedHolidays = sortHolidays(holidays, sortType);
+
+	sortedHolidays.forEach(holiday => {
+		const row = document.createElement('tr');
+
+		const date = new Date(holiday.date.iso);
+		const formattedDate = date.toISOString().split('T')[0]; // тільки рік-місяць-день, без часу
+
+		const dateCell = document.createElement('td');
+		dateCell.textContent = formattedDate;
+
+		const nameCell = document.createElement('td');
+		nameCell.textContent = holiday.name;
+
+		row.appendChild(dateCell);
+		row.appendChild(nameCell);
+		tableBody.appendChild(row);
+
+		console.log(`${dateCell.textContent} - ${nameCell.textContent}`);
+	});
+};
+
+export default displayHolidays;

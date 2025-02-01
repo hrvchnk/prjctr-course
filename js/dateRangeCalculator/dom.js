@@ -17,25 +17,14 @@ export function resultsListHistory(
 	endDate
 ) {
 	const li = document.createElement('li');
-	li.textContent = `${startDate} - ${endDate}: ${result}`;
+	li.textContent = ` ${startDate} - ${endDate}: ${result}`;
 	resultList.prepend(li);
 
-	// Обмеження списку до 10 елементів
+	// обмеження історії результатів до 10 останніх резлуьтатів
 	if (resultList.children.length > 10) {
 		resultList.removeChild(resultList.lastChild);
 	}
 }
-// додавання і відраження 10 останніх результатів в списку історіі
-// export function resultsListHistory(result, resultList) {
-// 	const li = document.createElement('li');
-// 	li.textContent = result;
-// 	resultList.prepend(li);
-
-// 	// Обмеження списку до 10 елементів
-// 	if (resultList.children.length > 10) {
-// 		resultList.removeChild(resultList.lastChild);
-// 	}
-// }
 
 // очищення результату і історії
 export function clearResults(resultList, lastResultSpan) {

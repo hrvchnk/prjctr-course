@@ -62,6 +62,6 @@ export function calculateDateRangeForFilteredDates(filteredDates, timeUnit) {
 	if (convertedValue !== null) {
 		return `${convertedValue} ${timeUnit}`;
 	} else {
-		return console.log('помилка в convertedValue');
+		return conseole.log('помилка в convertedValue');
 	}
 }

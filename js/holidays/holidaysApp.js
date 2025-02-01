@@ -1,21 +1,30 @@
 import { API_KEY, urlCountryList, urlHolidaysList } from './constants.js';
-import {
-	displayHolidays,
-	initDOM,
-	updateCountryList,
-	updateYearList,
-} from './dom.js';
+import displayHolidays, { updateCountryList, updateYearList } from './dom.js';
 import { handleError } from './error.js';
-
 export class HolidaysApp {
-	constructor() {
+	constructor({
+		countrySelect,
+		yearSelector,
+		showHolidaysButton,
+		tableBody,
+		sortButton,
+		sortIcon,
+	}) {
 		this.API_KEY = API_KEY;
-		const { countrySelect, yearSelector, showHolidaysButton } = initDOM();
+
 		this.countrySelect = countrySelect;
 		this.yearSelector = yearSelector;
-		this.showHolidaysButton = showHolidaysButton;
+
 		this.selectedCountry = '';
 		this.selectedYear = new Date().getFullYear();
+
+		this.showHolidaysButton = showHolidaysButton;
+		this.tableBody = tableBody;
+
+		this.sortButton = sortButton;
+		this.sortIcon = sortIcon;
+		this.sortType = 'asc';
+
 		this.addEventListeners();
 	}
 
@@ -27,7 +36,7 @@ export class HolidaysApp {
 				if (!response.ok) {
 					throw new Error(`Помилка: ${response.status}`);
 				}
-				console.log('*API* список країн отриман');
+				console.log('✅ *API* список країн отриман');
 				return response.json();
 			})
 			.then(data => {
@@ -38,6 +47,7 @@ export class HolidaysApp {
 				handleError(error, 'ERROR країн');
 			});
 	};
+
 	// отримання свят для вибраної країни та року
 	fetchHolidays = () => {
 		const url = `${urlHolidaysList}?api_key=${this.API_KEY}&country=${this.selectedCountry}&year=${this.selectedYear}`;
@@ -46,11 +56,12 @@ export class HolidaysApp {
 				if (!response.ok) {
 					throw new Error(`Помилка: ${response.status}`);
 				}
-				console.log('*API* список свят отриман');
+				console.log('✅ *API* список свят отриман');
 				return response.json();
 			})
 			.then(data => {
-				displayHolidays(data, document.querySelector('#table_result tbody'));
+				this.holidays = data.response.holidays;
+				displayHolidays(data.response.holidays, this.tableBody);
 			})
 			.catch(error => {
 				handleError(error, 'ERROR Свята');
@@ -60,7 +71,6 @@ export class HolidaysApp {
 	// взаємодія:
 	// вибір року
 	handleYearChange = event => {
-		// this.yearSelector.value = this.selectedYear;
 		this.selectedYear = event.target.value;
 		console.log(`Вибраний рік: ${this.selectedYear}`);
 	};
@@ -87,12 +97,32 @@ export class HolidaysApp {
 		}
 	};
 
+	// кнопка Сортування
+	toggleSort = () => {
+		if (this.sortType === 'asc') {
+			this.sortType = 'desc';
+		} else {
+			this.sortType = 'asc';
+		}
+
+		this.sortIcon.textContent = this.sortType === 'asc' ? '⬆️' : '⬇️';
+
+		console.log(
+			`Сортування змінено на: ${
+				this.sortType === 'asc' ? 'за зростанням ⬆️' : 'за спаданням ⬇️'
+			}`
+		);
+
+		displayHolidays(this.holidays, this.tableBody, this.sortType);
+	};
+
 	addEventListeners = () => {
-		this.countrySelect.addEventListener('change', this.handleCountryChange);
-		this.yearSelector.addEventListener('change', this.handleYearChange);
+		this.countrySelect.addEventListener('change', this.handleCountryChange); // вибір країни
+		this.yearSelector.addEventListener('change', this.handleYearChange); // вибір року
 		this.showHolidaysButton.addEventListener(
 			'click',
 			this.handleShowHolidaysClick
-		);
+		); // кнопка Show Holidays
+		this.sortButton.addEventListener('click', this.toggleSort); // кнопка сортування
 	};
 }

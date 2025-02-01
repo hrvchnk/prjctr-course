@@ -8,12 +8,6 @@ export function updateLocalStorage(result, timeUnit, startDate, endDate) {
 	results.push({ result, timeUnit, startDate, endDate });
 	localStorage.setItem('results', JSON.stringify(results));
 }
-// // оновлення результатів в localStorage - тільки результат в історії
-// export function updateLocalStorage(result) {
-// 	const results = getResultsFromLocalStorage();
-// 	results.push(result);
-// 	localStorage.setItem('results', JSON.stringify(results));
-// }
 
 // очищення localStorage
 export function clearLocalStorage() {

@@ -7,10 +7,10 @@ export function checkCorrectDateValue(startDate, endDate) {
 		if (endDateInput) {
 			// input червоний
 			endDateInput.style.border = '2px solid red';
-			alert('Виберіть кінцеву дату.');
+			alert('Виберіть кінцеву дату');
 
 			endDateInput.addEventListener('input', () => {
-				// якщо значення є, то прибераємо border
+				// якщо значення є, то прибираємо border
 				if (endDateInput.value) {
 					endDateInput.style.border = '';
 				}
@@ -21,11 +21,16 @@ export function checkCorrectDateValue(startDate, endDate) {
 	}
 
 	if (startDate > endDate) {
-		console.log('*ERRROR* Початкова дата не може бути пізніше кінцевої.');
-
-		alert('Початкова дата не може бути пізніше кінцевої.');
+		console.log('*ERRROR* Початкова дата не може бути пізніше кінцевої');
+		endDateInput.style.border = '2px solid red';
+		alert('Початкова дата не може бути пізніше кінцевої');
 
 		return false;
 	}
+
+	if (endDateInput && endDateInput.style.border) {
+		endDateInput.style.border = '';
+	}
+
 	return true;
 }

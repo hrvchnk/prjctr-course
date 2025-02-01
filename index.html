@@ -1,222 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reusable Tabs</title>
-    <link href="styles/style.css" rel="stylesheet" />
-  </head>
-  <body>
-    <!-- Заголовки табів -->
-    <div class="tabs__head">
-      <div class="tabs__toggle is-active" data-tab="tab1">
-        <span class="tabs__name">📌 Task</span>
-      </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Reusable Tabs</title>
+		<link href="styles/style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- Заголовки табів -->
+		<div class="tabs__head">
+			<div class="tabs__toggle is-active" data-tab="tab1">
+				<span class="tabs__name">📌 Task</span>
+			</div>
 
-      <div class="tabs__toggle" data-tab="tab2">
-        <span class="tabs__name">⏱️ Range</span>
-      </div>
-      <div class="tabs__toggle" data-tab="tab3">
-        <span class="tabs__name">🎉 Holidays</span>
-      </div>
-    </div>
+			<div class="tabs__toggle" data-tab="tab2">
+				<span class="tabs__name">⏱️ Range</span>
+			</div>
+			<div class="tabs__toggle" data-tab="tab3">
+				<span class="tabs__name">🎉 Holidays</span>
+			</div>
+		</div>
 
-    <!-- Контент табів -->
-    <div class="tabs__body">
-
+		<!-- Контент табів -->
+		<div class="tabs__body">
 			<!-- ****** Description ****** -->
-      <!-- Task Tab -->
-      <div id="tab1" class="tabs__content is-active">
-        <h2 class="tabs__title"> JavaScript 14 Курсовий проєкт</h2>
-      
-			
-				
-				<label for="start-date">Основна ідея застосунку: </label>
-        <p class="tabs__text">Створення веб-застосунку для <strong>визначення проміжку часу ⏱️ між заданими датами</strong> та <strong>визначення святкових дат 🎉 для країни в обраний рік</strong>. <br><br> Для роботи буде використовуватись API для отримання даних про країни та свята з сайту <a href="https://calendarific.com/">https://calendarific.com/</a>. Для цього потрібно буде створити аккаунт на цьому сайті для використання API-ключа в роботі відкритого API цього сайту.  </p>
-		
-	
+			<!-- Task Tab -->
+			<div id="tab1" class="tabs__content is-active">
+				<h2 class="tabs__title">JavaScript 14 Курсовий проєкт</h2>
 
-				<label for="start-date" style='margin-top: 30px;'>Task 1: </label>
-				<p>На першій табі юзер може обрати в першому інпуті дату, потім в другому інпуті дату, задати додаткові параметри - і отримати проміжок часу між цими датами.</p>
-				<p class="toggle-hidden-text" onclick="toggleText1()"><u>Особливості роботи таби №1</u></p>
-				<p class="hidden-text" id="text1">
-					
-					Тільки після того як юзер обрав одну дату в першому інпуті, він може обрати дату в другому інпуті яка йде не раніше дати з першого інпуту і навпаки
-					Юзер може обрати пресети проміжків часу:
-					— 'тиждень' (7 днів)
-					— 'місяць' (30 днів)
-					Юзер може обрати опції:
-					— 'Всі дні'
-					— 'Будні дні'
-					— 'Вихідні дні'
-					Юзер може вибрати опції:
-					— 'Порахувати кількість днів'
-					— 'Порахувати кількість годин'
-					— 'Порахувати кількість хвилин'
-					— 'Порахувати кількість секунд'
-					Юзер може зайти в застосунок і побачити, якщо вони є, останні 10 результатів які він рахував у вигляді таблиці (стартова дата, кінцева дата, і який результат виміру)
-					— Для цього використати localStorage
+				<label for="start-date">Основна ідея застосунку: </label>
+				<p class="tabs__text">
+					Створення веб-застосунку для
+					<strong>визначення проміжку часу ⏱️ між заданими датами</strong> та
+					<strong>визначення святкових дат 🎉 для країни в обраний рік</strong>.
+					<br /><br />
+					Для роботи буде використовуватись API для отримання даних про країни
+					та свята з сайту
+					<a href="https://calendarific.com/">https://calendarific.com/</a>. Для
+					цього потрібно буде створити аккаунт на цьому сайті для використання
+					API-ключа в роботі відкритого API цього сайту.
 				</p>
-			
-				<label for="start-date" style='margin-top: 30px;'>Task 2: </label>
-				<p>На другій табі юзер може обрати країну в першому інпуті, потім рік в другому інпуті - і отримати список свят з датам</p>
-				<p class="toggle-hidden-text" onclick="toggleText2()"><u>Особливості роботи таби №2</u></p>
+
+				<label for="start-date" style="margin-top: 30px">Task 1: </label>
+				<p>
+					На першій табі юзер може обрати в першому інпуті дату, потім в другому
+					інпуті дату, задати додаткові параметри - і отримати проміжок часу між
+					цими датами.
+				</p>
+				<p class="toggle-hidden-text" onclick="toggleText1()">
+					<u>Особливості роботи таби №1</u>
+				</p>
+				<p class="hidden-text" id="text1">
+					Тільки після того як юзер обрав одну дату в першому інпуті, він може
+					обрати дату в другому інпуті яка йде не раніше дати з першого інпуту і
+					навпаки Юзер може обрати пресети проміжків часу: — 'тиждень' (7 днів)
+					— 'місяць' (30 днів) Юзер може обрати опції: — 'Всі дні' — 'Будні дні'
+					— 'Вихідні дні' Юзер може вибрати опції: — 'Порахувати кількість днів'
+					— 'Порахувати кількість годин' — 'Порахувати кількість хвилин' —
+					'Порахувати кількість секунд' Юзер може зайти в застосунок і побачити,
+					якщо вони є, останні 10 результатів які він рахував у вигляді таблиці
+					(стартова дата, кінцева дата, і який результат виміру) — Для цього
+					використати localStorage
+				</p>
+
+				<label for="start-date" style="margin-top: 30px">Task 2: </label>
+				<p>
+					На другій табі юзер може обрати країну в першому інпуті, потім рік в
+					другому інпуті - і отримати список свят з датам
+				</p>
+				<p class="toggle-hidden-text" onclick="toggleText2()">
+					<u>Особливості роботи таби №2</u>
+				</p>
 				<p class="hidden-text" id="text2">
-					Коли юзер заходить на цю табу має бути зроблений запит на ендпоїнт https://calendarific.com/api/v2/countries  для отримання списку всіх країн. Цей список буде використовуватись для опцій в першому інпуті 'Вибір країни'. 
-					В другому інпуті 'Вибір року' має бути список років від 2001 до 2049. Цей інпут має бути заблокований доки юзер не обере країну 
-					Значенням по замовчуванню в інпуті 'Вибір року' має бути поточний рік 
-					Коли обидва параметри будуть обрані, потрібно зробити запит на ендпоїнт https://calendarific.com/api/v2/holidays
-					Отриманий результат потрібно представити у вигляді таблиці з колонками 'Дата' та 'Назва свята' 
-					Для колонки 'Дата' має бути кнопка по кліку на яку юзер може посортувати свята в хронологічному чи зворотньому хронологічному порядку 
-					У випадку помилки якогось з цих двох запитів до ендпоїнтів потрібно вивести на екран блок з повідомленням про помилку  
+					Коли юзер заходить на цю табу має бути зроблений запит на ендпоїнт
+					https://calendarific.com/api/v2/countries для отримання списку всіх
+					країн. Цей список буде використовуватись для опцій в першому інпуті
+					'Вибір країни'. В другому інпуті 'Вибір року' має бути список років
+					від 2001 до 2049. Цей інпут має бути заблокований доки юзер не обере
+					країну Значенням по замовчуванню в інпуті 'Вибір року' має бути
+					поточний рік Коли обидва параметри будуть обрані, потрібно зробити
+					запит на ендпоїнт https://calendarific.com/api/v2/holidays Отриманий
+					результат потрібно представити у вигляді таблиці з колонками 'Дата' та
+					'Назва свята' Для колонки 'Дата' має бути кнопка по кліку на яку юзер
+					може посортувати свята в хронологічному чи зворотньому хронологічному
+					порядку У випадку помилки якогось з цих двох запитів до ендпоїнтів
+					потрібно вивести на екран блок з повідомленням про помилку
 				</p>
 				<p>
-					<label for="start-date" style='margin-top: 30px;'>Загальні особливості роботи застосунку </label>
-					Юзер має мати можливість комфортно працювати з мобільного телефона з цим застосунком— Мається на увазі що має бути передбачена мобільна версія сайтуЮзер має мати можливість перейти на реальну сторінку застосунку в інтернеті— Мається на увазі що застосунок розміщується на Github pagesІнтерфейс має бути англійською або українською— Мається на увазі що застосунок має бути перекладений ОДНІЄЮ з вказаних мов</p>
-				
-
-					<p class="last-result" style="margin-top: 30px;">
-						Hravchenko Vladyslav<br>
-						<a href="mailto:hrvchnk@gmail.com">hrvchnk@gmail.com</a>
+					<label for="start-date" style="margin-top: 30px"
+						>Загальні особливості роботи застосунку
+					</label>
+					Юзер має мати можливість комфортно працювати з мобільного телефона з
+					цим застосунком— Мається на увазі що має бути передбачена мобільна
+					версія сайтуЮзер має мати можливість перейти на реальну сторінку
+					застосунку в інтернеті— Мається на увазі що застосунок розміщується на
+					Github pagesІнтерфейс має бути англійською або українською— Мається на
+					увазі що застосунок має бути перекладений ОДНІЄЮ з вказаних мов
 				</p>
-			</code>
 
-      </div>
-      <!-- END Task Tab -->
-		
+				<p class="last-result" style="margin-top: 30px">
+					Hravchenko Vladyslav<br />
+					<a href="mailto:hrvchnk@gmail.com">hrvchnk@gmail.com</a>
+				</p>
+			</div>
+			<!-- END Task Tab -->
+
 			<!-- ****** Task 1 ****** -->
-      <!-- Range Tab -->
-      <div id="tab2" class="tabs__content">
-        <h2 class="tabs__title">⏱️ Date Range Calculator</h2>
-        <p class="tabs__text">Use our date range calculator to find the number </br>of days between two dates</p>
-        
-        <!-- Date Pickers -->
-        <div class="date-pickers">
-          <label for="start-date">Start Date</label>
-          <input type="date" id="start-date" name="start-date" value="" />
-
-          <!-- Checkbox Presets -->
-          <div class="checkbox-container">
-            <label>
-              <span id="preset-7days" class="custom-checkbox">+ Week (7 days)</span>
-            </label>
-            <label>
-              <span id="preset-30days" class="custom-checkbox">+ Month (30 days)</span>
-            </label>
-          </div>
-
-          <label for="end-date">End Date</label>
-          <input type="date" id="end-date" name="end-date" />
-
-          <label for="options-selector-filter-day-of-week">Select options</label>
-          <select id="options-selector-filter-day-of-week">
-            <option value="all">All days</option>
-            <option value="workdays">Workdays</option>
-            <option value="weekends">Weekends</option>
-          </select>
-        </div>
-
-        <!-- Buttons -->
-        <div class="tabs__actions">
-          <button id="day-button" class="result-button" data-range="days">
-            Day
-          </button>
-          <button id="hours-button" class="result-button" data-range="hours" data-range="hours">
-            Hours
-          </button>
-          <button id="minutes-button" class="result-button" data-range="minutes">Minutes</button>
-          <button id="seconds-button" class="result-button" data-range="seconds">Seconds</button>
-        </div>
-
-        <!-- Result -->
-        <p for="result"class="last-result">
-          Result: <span id="last-result">0</span>
+			<!-- Range Tab -->
+			<div id="tab2" class="tabs__content">
+				<h2 class="tabs__title">⏱️ Date Range Calculator</h2>
+				<p class="tabs__text">
+					Use our date range calculator to find the number <br />of days between
+					two dates
 				</p>
 
-				 <!-- History -->
-        <p class="history-header">
-					<label for="text">History:</label>
-          <ul class="result-list"></ul>
-          <button id="clear-button" class="clear-button-text">
-            Clear history
-          </button>
-        </p>
-      </div>
-			
+				<!-- Date Pickers -->
+				<div class="date-pickers">
+					<label for="start-date">Start Date</label>
+					<input type="date" id="start-date" name="start-date" value="" />
+
+					<!-- Checkbox Presets -->
+					<div class="checkbox-container">
+						<label for="preset-7days">
+							<span id="preset-7days" class="custom-checkbox"
+								>+ Week (7 days)</span
+							>
+						</label>
+						<label for="preset-30days">
+							<span id="preset-30days" class="custom-checkbox"
+								>+ Month (30 days)</span
+							>
+						</label>
+					</div>
+
+					<label for="end-date">End Date</label>
+					<input type="date" id="end-date" name="end-date" />
+
+					<label for="options-selector-filter-day-of-week"
+						>Select options</label
+					>
+					<select id="options-selector-filter-day-of-week">
+						<option value="all">All days</option>
+						<option value="workdays">Workdays</option>
+						<option value="weekends">Weekends</option>
+					</select>
+				</div>
+
+				<!-- Buttons -->
+				<label for="options-selector-filter-day-of-week"
+					>Choose result unit</label
+				>
+				<div class="tabs__actions">
+					<button id="day-button" class="result-button" data-range="days">
+						Day
+					</button>
+					<button id="hours-button" class="result-button" data-range="hours">
+						Hours
+					</button>
+					<button
+						id="minutes-button"
+						class="result-button"
+						data-range="minutes"
+					>
+						Minutes
+					</button>
+					<button
+						id="seconds-button"
+						class="result-button"
+						data-range="seconds"
+					>
+						Seconds
+					</button>
+				</div>
+
+				<!-- Result -->
+				<p class="last-result">Result: <span id="last-result">0</span></p>
+
+				<!-- History -->
+				<p class="history-header"></p>
+				<label for="text">History:</label>
+				<ul class="result-list"></ul>
+				<button id="clear-button" class="clear-button-text">
+					Clear history
+				</button>
+				<!-- </p> -->
+			</div>
+
 			<!-- ****** Task 2 ****** -->
-      <!-- Holidays Tab -->
-   <!-- Holidays Tab -->
-      <div id="tab3" class="tabs__content">
-        <h2 class="tabs__title">Holidays Tab</h2>
-        <p class="tabs__text">Content for the Holidays tab goes here.</p>
-        
-        <!-- Список країн -->
-        <label for="country-selector">Select country</label>
-        <select id="country-selector">
-          <!-- <option value="all">All countries</option> -->
-        </select>
-        
-        <!-- Список років -->
-        <label for="year-selector">Select year</label>
-        <select id="year-selector" disabled></select>
+			<!-- Holidays Tab -->
+			<!-- Holidays Tab -->
+			<div id="tab3" class="tabs__content">
+				<h2 class="tabs__title">🎉 Holidays</h2>
+				<p class="tabs__text">
+					Use our holiday calendar to view the dates and <br />names of national
+					holidays in <strong>[Country]</strong> for
+					<strong>[Year]</strong>
+				</p>
 
-        <button id="show-holidays-button"  class="holidays-button"  disabled>👇🏻 Show Holidays 👇🏻</button>
+				<!-- List of countries -->
+				<label for="country-selector">Select country</label>
+				<select id="country-selector">
+					<!-- <option value="all">All countries</option> -->
+				</select>
 
-        <!-- Фільтр для пошуку -->
-        <input type="text" id="dateFilter" onkeyup="filterTable()" placeholder="Search for holidays">
-        
-        <!-- Таблиця для відображення свят -->
-        <table id="table_result">
-          <thead>
-            <tr>
-              <th>Date
-                <button id="sortButton" onclick="toggleSort()" aria-label="Sort">
-                  <span id="sortIcon">⬆️</span>
-                </button>
-              </th>
-              <th>Holidays</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Дані будуть динамічно додані через JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
+				<!-- List of years -->
+				<label for="year-selector">Select year</label>
+				<select id="year-selector" disabled></select>
 
-    <script src="js/app.js"></script>
-    <!-- <script src="js/dateRangeCalculate/test/index.js" type="module" defer></script> -->
-    <!-- <script src="js/dateRangeCalculate/oldNew.js" type="module" defer></script> -->
-    <script src="js/dateRangeCalculator/index.js" type="module" defer></script>
-    <!-- <script src="js/dateRangeCalculate/newAll.js" type="module" defer></script> -->
-		<!-- <script type="module" src="./js/holidays/holidaysApp.js"></script> -->
+				<button id="show-holidays-button" class="holidays-button" disabled>
+					👇🏻 Show Holidays 👇🏻
+				</button>
 
-		<script type="module" src="./js/holidays/index.js"></script>
+				<!-- Holiday display table -->
+				<table id="table-result">
+					<thead>
+						<tr>
+							<th>
+								Date
+								<button id="sort-button" aria-label="Sort">
+									<span id="sort-icon">⬆️</span>
+								</button>
+							</th>
+							<th>Holidays</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
 
+		<script src="index.js" type="module"></script>
 
 		<script>
-		  function toggleText1() {
-        const text = document.getElementById('text1');
-        const toggle = document.querySelector('.toggle');
-        if (text.style.display === 'none' || text.style.display === '') {
-            text.style.display = 'block';
-
-        } else {
-            text.style.display = 'none';
-            
-        }
-    }  function toggleText2() {
-        const text = document.getElementById('text2');
-        const toggle = document.querySelector('.toggle');
-        if (text.style.display === 'none' || text.style.display === '') {
-            text.style.display = 'block';
-
-        } else {
-            text.style.display = 'none';
-            
-        }
-    }
-	</script>
-	
-  </body>
+			function toggleText1() {
+				const text = document.getElementById('text1');
+				const toggle = document.querySelector('.toggle');
+				if (text.style.display === 'none' || text.style.display === '') {
+					text.style.display = 'block';
+				} else {
+					text.style.display = 'none';
+				}
+			}
+			function toggleText2() {
+				const text = document.getElementById('text2');
+				const toggle = document.querySelector('.toggle');
+				if (text.style.display === 'none' || text.style.display === '') {
+					text.style.display = 'block';
+				} else {
+					text.style.display = 'none';
+				}
+			}
+		</script>
+	</body>
 </html>
