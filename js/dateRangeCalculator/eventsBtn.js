@@ -3,8 +3,8 @@ import {
 	calculateDateRangeForFilteredDates,
 	filterDayOfWeek,
 } from './dates.js';
-import { resultsListHistory, updateLastResult } from './dom.js';
-import { updateLocalStorage } from './storage.js';
+import { clearResults, resultsListHistory, updateLastResult } from './dom.js';
+import { clearLocalStorage, updateLocalStorage } from './storage.js';
 import { checkCorrectDateValue } from './validation.js';
 // робота з кнопками
 export function handleResultButtons(
