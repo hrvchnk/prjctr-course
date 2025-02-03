@@ -18,6 +18,16 @@ body {
 *	Таби, кнопки табів, поле контенту табів
 *
 */
+ul {
+	margin-top: -14px;
+	padding-left: 40px;
+	list-style-type: disc;
+}
+
+li {
+	font-size: 14px;
+	line-height: 1.6;
+}
 
 /* TABS */
 .tabs__content {
