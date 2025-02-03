@@ -225,6 +225,7 @@ select:focus {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+
 /* Список результатів */
 .result-list {
 	margin: 0px 0;
@@ -238,6 +239,10 @@ select:focus {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.result-list .date {
+	color: #b2b2b2;
 }
 
 /* Кнопка Clear Results */

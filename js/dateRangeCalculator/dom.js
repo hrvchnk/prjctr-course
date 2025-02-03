@@ -17,7 +17,23 @@ export function resultsListHistory(
 	endDate
 ) {
 	const li = document.createElement('li');
-	li.textContent = ` ${startDate} - ${endDate}: ${result}`;
+
+	// відображення в історії результатів в форматі: dd.mm.yyyy
+	const formattedStartDate = new Date(startDate).toLocaleDateString('uk-UA', {
+		day: '2-digit',
+		month: '2-digit',
+		year: 'numeric',
+	});
+	const formattedEndDate = new Date(endDate).toLocaleDateString('uk-UA', {
+		day: '2-digit',
+		month: '2-digit',
+		year: 'numeric',
+	});
+	li.innerHTML = `<span class="result">${result}</span>
+	<span class="date">${formattedStartDate} – ${formattedEndDate}</span>
+	
+`;
+	// li.textContent = ` ${startDate} - ${endDate}: ${result}`;
 	resultList.prepend(li);
 
 	// обмеження історії результатів до 10 останніх резлуьтатів
