@@ -1,9 +1,9 @@
 // Toggle tab visibility
 document.querySelectorAll('.tabs__toggle').forEach(toggle => {
 	toggle.addEventListener('click', function () {
-		document
-			.querySelectorAll('.tabs__toggle')
-			.forEach(t => t.classList.remove('is-active'));
+		document.querySelectorAll('.tabs__toggle').forEach(t => {
+			t.classList.remove('is-active');
+		});
 		document
 			.querySelectorAll('.tabs__content')
 			.forEach(c => c.classList.remove('is-active'));
@@ -11,6 +11,7 @@ document.querySelectorAll('.tabs__toggle').forEach(toggle => {
 		this.classList.add('is-active');
 		const tabId = this.getAttribute('data-tab');
 		document.getElementById(tabId).classList.add('is-active');
+		localStorage.setItem('active-tab', tabId);
 	});
 });
 
@@ -82,6 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const domElements = initDOM();
 	if (!domElements) return;
+
+	const savedTab = localStorage.getItem('active-tab');
+	if (savedTab) {
+		const activeToggle = document.querySelector(
+			`.tabs__toggle[data-tab="${savedTab}"]`
+		);
+		if (activeToggle) {
+			activeToggle.click();
+		}
+	}
 
 	const { startDateInput, endDateInput, lastResultSpan, resultList } =
 		domElements; // деструктуризація
