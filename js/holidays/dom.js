@@ -38,6 +38,7 @@ const sortHolidays = (holidays, sortType) => {
 	});
 };
 
+// tableBody.closest('table').classList.add('hidden');
 // відображення свят
 const displayHolidays = (holidays, tableBody, sortType = 'asc') => {
 	console.log(`свята сортовані по: ${sortType}`, holidays);
@@ -63,6 +64,7 @@ const displayHolidays = (holidays, tableBody, sortType = 'asc') => {
 
 		console.log(`${dateCell.textContent} - ${nameCell.textContent}`);
 	});
+	document.getElementById('table-result').removeAttribute('hidden');
 };
 
 export default displayHolidays;

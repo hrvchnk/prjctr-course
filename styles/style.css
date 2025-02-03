@@ -74,7 +74,7 @@ span::after {
 	padding: 30px;
 	position: relative;
 	max-width: 700px;
-	min-height: 500px;
+	min-height: 200px;
 }
 
 /*
